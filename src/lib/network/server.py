@@ -28,7 +28,13 @@ class Server:
 
     def start(self, n: int = 5) -> None:
         "Starting Server with a listener"
-        self.s.bind((self.host, self.port))
+        try:
+            self.s.bind((self.host, self.port))
+        except OSError:
+            log.fatal(f'{self.host}:{self.port} is already in use, use another port using environment variables')
+            sys.exit(1)
+
         self.s.listen(n)
         log.info(f"Listening on {self.host}:{self.port}")
         self.listener()
+

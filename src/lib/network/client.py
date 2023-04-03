@@ -16,5 +16,9 @@ class Client:
 
     def connect(self) -> None:
         "Connects to the pre-specified host and port"
-        self.s.connect((self.host, self.port))
+        try:
+            self.s.connect((self.host, self.port))
+        except ConnectionRefusedError:
+            log.fatal(f'{self.host}:{self.port} is not reachable, make sure it is running')
+            sys.exit(1)
         self.interface(self.s)

@@ -16,6 +16,20 @@ pip install -r requirements.txt
 
 > **NOTE:** Make sure python is installed on your system (prefereably the one indicated in `.python-version`)
 
+# Run
+
+## Central Server
+
+```sh
+python3 src/server.py
+```
+
+## Client
+
+```sh
+python3 src/client.py
+
+```
 
 # Docmentation
 
@@ -29,6 +43,18 @@ pip install -r requirements.txt
 | Client         | Interact with the Central Server                          |
 | L Worker       | Computes the L of a Matrix Decomposition Problem `A = LU` |
 | U Worker       | Computes the U of a Matrix Decomposition Problem `A = LU` |
+
+## Code Documentation
+
+The documentation for specific code can be found [here](./docs/index.md)
+
+### Server
+
+A python class providing logic for the server that uses python `sockets` and handles every client in a seperate thread. For further [info](./docs/Server.md)
+
+### Client
+
+A python class providing logic for the client that uses python `sockets` and connects to server. For further [info](./docs/Client.md)
 
 # Contributors
 
