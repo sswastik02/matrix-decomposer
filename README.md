@@ -4,6 +4,19 @@
 
 **_A Client-Server model service built using python socket library which decomposes a given matrix_**
 
+# Setup
+
+## Dependencies
+
+```sh
+python3 -m venv venv # if you have not created a virtual environment yet
+source venv/bin/activate
+pip install -r requirements.pip
+```
+
+> **NOTE:** Make sure python is installed on your system (prefereably the one indicated in `.python-version`)
+
+
 # Docmentation
 
 ## Architecture

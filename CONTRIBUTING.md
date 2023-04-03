@@ -4,13 +4,17 @@ Thank you for your interest in the project!
 
 If you are interested in contributing, please follow these golden rules when contributing:
 
-- **First steps**. The project requires some global (system-wide) dependencies, i.e. python
+- **First steps**. The project has some dependencies, i.e. python, pip requirements
   <br>
   <details>
   <summary><b>More detailed steps</b></summary>
     <ul>
     <li>
-    Install <a href="https://www.python.org/downloads/">Python</a><br>(Install the recommended version as indicated in  <code>.python-version</code>)
+    Install <a href="https://www.python.org/downloads/">Python</a><br>(Install the recommended version as indicated in  <code>.python-version</code> or consider using <code>pyenv</code>)
+    </li>
+    <li>
+    Install pip requirements from <code>requirements.pip</code>
+    Note: You might want to use a virtual environment: <code>python3 -m venv venv</code>
     </li>
 
   </details>
