@@ -11,7 +11,7 @@
 ```sh
 python3 -m venv venv # if you have not created a virtual environment yet
 source venv/bin/activate
-pip install -r requirements.pip
+pip install -r requirements.txt
 ```
 
 > **NOTE:** Make sure python is installed on your system (prefereably the one indicated in `.python-version`)

@@ -13,7 +13,7 @@ If you are interested in contributing, please follow these golden rules when con
     Install <a href="https://www.python.org/downloads/">Python</a><br>(Install the recommended version as indicated in  <code>.python-version</code> or consider using <code>pyenv</code>)
     </li>
     <li>
-    Install pip requirements from <code>requirements.pip</code>
+    Install pip requirements from <code>requirements.txt</code>
     Note: You might want to use a virtual environment: <code>python3 -m venv venv</code>
     </li>
 

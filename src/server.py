@@ -1,11 +1,14 @@
-from lib.network.server import Server
 import os
 import socket
+
 from constants.servers import CENTRAL_SERVER
+from lib.network.server import Server
+from lib.network.matrix import recv_matrix
 
 
 def client_handler(cli: socket.socket, ip: any) -> None:
-    cli.send(f"Connected Successfuly your ip is {ip}".encode())
+    matrix = recv_matrix(cli)
+    cli.send(f"Hello {ip} recieved {matrix}".encode())
 
 
 def main():

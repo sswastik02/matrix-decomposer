@@ -13,9 +13,11 @@ class Server:
         self.port = port
 
     def set_client_handler(self, client_handler: typing.Callable[[socket.socket, any], None]) -> None:
+        "Sets a client handler for the server object"
         self.client_handler = client_handler
 
     def listener(self) -> None:
+        "Listens for new connections and starting in threads"
         while True:
             cli, ip = self.s.accept()
             log.info(f'[*] New Connection : {ip}')
@@ -25,6 +27,7 @@ class Server:
             client_thread.start()
 
     def start(self, n: int = 5) -> None:
+        "Starting Server with a listener"
         self.s.bind((self.host, self.port))
         self.s.listen(n)
         log.info(f"Listening on {self.host}:{self.port}")

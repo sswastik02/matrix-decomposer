@@ -1,7 +1,7 @@
 import signal
-from .logger import log
 import sys
 
+from .logger import log
 
 def sigint_handler(sig, frame):
     log.critical("Exiting SIGINT recieved")
