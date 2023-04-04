@@ -1,6 +1,7 @@
 # Matrix Decomposer Service
 
 <img src="https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/License-AGPL_v3-blue.svg?style=for-the-badge"/>
 
 **_A Client-Server model service built using python socket library which decomposes a given matrix_**
 

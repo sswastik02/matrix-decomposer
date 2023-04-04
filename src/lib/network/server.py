@@ -1,9 +1,12 @@
 import socket
 import threading
 import typing
+import signal
+import sys
 
 from ..utils.logger import log
-from ..utils.signals import *
+from ..utils.signals import sigint_handler
+
 
 
 class Server:
@@ -18,6 +21,7 @@ class Server:
 
     def listener(self) -> None:
         "Listens for new connections and starting in threads"
+        signal.signal(signal.SIGINT, lambda sig, frame: sigint_handler(sig, frame, self.s))
         while True:
             cli, ip = self.s.accept()
             log.info(f'[*] New Connection : {ip}')
