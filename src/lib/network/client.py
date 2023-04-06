@@ -1,7 +1,8 @@
 import socket
 import typing
+import sys
 
-from ..utils.signals import *
+from ..utils.logger import log
 
 
 class Client:
@@ -14,11 +15,17 @@ class Client:
         "Sets an interface for the client"
         self.interface = interface
 
-    def connect(self) -> None:
+    def run_interface(self) -> None:
+        "Runs the interface"
+        self.interface(self.s)
+
+    def connect(self, run_interface: bool = True) -> None:
         "Connects to the pre-specified host and port"
         try:
             self.s.connect((self.host, self.port))
         except ConnectionRefusedError:
-            log.fatal(f'{self.host}:{self.port} is not reachable, make sure it is running')
+            log.fatal(
+                f'{self.host}:{self.port} is not reachable, make sure it is running')
             sys.exit(1)
-        self.interface(self.s)
+        if run_interface:
+            self.interface(self.s)

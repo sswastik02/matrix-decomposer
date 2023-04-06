@@ -1,12 +1,9 @@
 import socket
 import threading
 import typing
-import signal
 import sys
 
 from ..utils.logger import log
-from ..utils.signals import sigint_handler
-
 
 
 class Server:
@@ -14,6 +11,7 @@ class Server:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = host
         self.port = port
+        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def set_client_handler(self, client_handler: typing.Callable[[socket.socket, any], None]) -> None:
         "Sets a client handler for the server object"
@@ -21,7 +19,6 @@ class Server:
 
     def listener(self) -> None:
         "Listens for new connections and starting in threads"
-        signal.signal(signal.SIGINT, lambda sig, frame: sigint_handler(sig, frame, self.s))
         while True:
             cli, ip = self.s.accept()
             log.info(f'[*] New Connection : {ip}')
@@ -35,10 +32,16 @@ class Server:
         try:
             self.s.bind((self.host, self.port))
         except OSError:
-            log.fatal(f'{self.host}:{self.port} is already in use, use another port using environment variables')
+            log.fatal(
+                f'{self.host}:{self.port} is already in use, use another port using environment variables')
             sys.exit(1)
 
         self.s.listen(n)
         log.info(f"Listening on {self.host}:{self.port}")
-        self.listener()
-
+        try:
+            self.listener()
+        except KeyboardInterrupt:
+            log.critical("Exiting SIGINT recieved")
+            self.s.shutdown(socket.SHUT_RDWR)
+            self.s.close()
+            sys.exit(0)

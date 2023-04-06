@@ -9,10 +9,10 @@ from constants.servers import CENTRAL_SERVER
 
 
 def interface(s: socket.socket) -> None:
-    matrix = np.array([[0, 1], [1, 2]])
-    send_matrix(s, matrix)
-    print(s.recv(MSG_LEN))
-    s.close()
+    with s:
+        matrix = np.array([[2, -1, -2], [-4, 6, 3], [-4, -2, 8]])
+        send_matrix(s, matrix)
+        print(s.recv(MSG_LEN))
 
 
 def main():
