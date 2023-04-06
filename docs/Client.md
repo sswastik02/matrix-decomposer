@@ -14,6 +14,7 @@ Sets a valid interface for the client object
 
 * `interface`: Callable that will be set and called during `connect` operation
 
-### `Client.connect(self)`
+### `Client.connect(self, run_interface)`
 Connects to the given `host` and `port` while instantiating the client object and runs the `interface`
 
+* `run_interface`: Boolean Type to decide if to run interface during connect. Default: `True`
