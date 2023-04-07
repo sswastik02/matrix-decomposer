@@ -1,3 +1,4 @@
+import os
 import socket
 
 from constants.servers import L_SERVER
@@ -18,11 +19,11 @@ def client_handler(cli: socket.socket, ip: any) -> None:
 
 
 def main():
-    host = L_SERVER.host
-    port = L_SERVER.port
+    host = os.getenv("HOST") or L_SERVER.host
+    port = os.getenv("PORT") or L_SERVER.port
     port = int(port)
 
-    server = Server(host, port)
+    server = Server(host, port, server_name="l-decomposer")
     server.set_client_handler(client_handler)
     server.start()
 

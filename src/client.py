@@ -1,11 +1,9 @@
 import socket
-import os
 import numpy as np
 
 from lib.network.client import Client
 from lib.network.matrix import send_matrix
 from constants.network import MSG_LEN
-from constants.servers import CENTRAL_SERVER
 
 
 def interface(s: socket.socket) -> None:
@@ -16,10 +14,7 @@ def interface(s: socket.socket) -> None:
 
 
 def main():
-    host = os.getenv("HOST") or CENTRAL_SERVER.host
-    port = os.getenv("PORT") or CENTRAL_SERVER.port
-    port = int(port)
-    client = Client(host, port)
+    client = Client(name='central-server')
     client.set_interface(interface)
     client.connect()
 

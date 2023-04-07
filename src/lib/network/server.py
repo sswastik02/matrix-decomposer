@@ -4,13 +4,15 @@ import typing
 import sys
 
 from ..utils.logger import log
+from constants.servers import DNS
 
 
 class Server:
-    def __init__(self, host: str, port: int) -> None:
+    def __init__(self, host: str, port: int, server_name: str) -> None:
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.host = host
         self.port = port
+        self.server_name = server_name
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def set_client_handler(self, client_handler: typing.Callable[[socket.socket, any], None]) -> None:
@@ -27,8 +29,23 @@ class Server:
             )
             client_thread.start()
 
-    def start(self, n: int = 5) -> None:
+    def register_dns(self) -> None:
+        with self.s:
+            try:
+                self.s.connect((DNS.host, DNS.port))
+            except ConnectionRefusedError:
+                log.fatal(
+                    f'{DNS.host}:{DNS.port} is not reachable, make sure DNS is running')
+                sys.exit(1)
+            self.s.send(f'{self.server_name}@{self.host}:{self.port}'.encode())
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        # Workaround to reuse socket
+
+    def start(self, n: int = 5, register_dns: bool = True) -> None:
         "Starting Server with a listener"
+        if register_dns:
+            self.register_dns()
         try:
             self.s.bind((self.host, self.port))
         except OSError:

@@ -14,3 +14,8 @@ U_SERVER = DotDict({
     "host": "localhost",
     "port": 6000
 })
+
+DNS = DotDict({
+    "host": "localhost",
+    "port": 4000
+})

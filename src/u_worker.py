@@ -1,3 +1,4 @@
+import os
 import socket
 
 from constants.servers import U_SERVER
@@ -18,11 +19,11 @@ def client_handler(cli: socket.socket, ip: any) -> None:
 
 
 def main():
-    host = U_SERVER.host
-    port = U_SERVER.port
+    host = os.getenv("HOST") or U_SERVER.host
+    port = os.getenv("PORT") or U_SERVER.port
     port = int(port)
 
-    server = Server(host, port)
+    server = Server(host, port, server_name="u-decomposer")
     server.set_client_handler(client_handler)
     server.start()
 
