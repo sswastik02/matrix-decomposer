@@ -5,6 +5,7 @@ from lib.network.client import Client
 from lib.network.matrix import send_matrix, recv_matrix
 from constants.network import MSG_LEN
 from lib.utils.logger import log
+np.set_printoptions(precision=2)
 
 
 def interface(s: socket.socket) -> None:
@@ -19,11 +20,26 @@ def interface(s: socket.socket) -> None:
     send_matrix(s, matrix)
     upper = recv_matrix(s)
     lower = recv_matrix(s)
-    print(f"Upper :\n {upper}")
-    print(f"Lower :\n {lower}")
-    print(f'Product :\n {np.matmul(lower, upper)}')
-    print(f'Actual :\n {matrix}')
-    x = input()
+    product = (np.matmul(lower,upper))
+    print("Lower Triangular\t\tUpper Triangular")
+    for i in range(n):
+        for j in range(n):
+            print("%.2f" % lower[i][j], end="\t")
+        print("",end="\t")
+        for j in range(n):
+            print("%.2f" % product[i][j], end="\t")
+        print("")
+    print(f"\nCheck output matrix and actual matrix are equal : {(product == matrix).all()}\n")
+    
+    print("Actual matrix\t\t\tProduct matrix")
+    for i in range(n):
+        for j in range(n):
+            print("%.2f" % matrix[i][j], end="\t")
+        print("",end="\t")
+        for j in range(n):
+            print("%.2f" % product[i][j], end="\t")
+        print("")
+    input()
     s.close()
 
 

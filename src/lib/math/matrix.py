@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def uDecomposition(matrix):
     n = len(matrix)
     helper = np.zeros((n, n))
