@@ -41,7 +41,8 @@ def client_handler(cli: socket.socket, ip: any) -> None:
         
         l_client.run_interface()
         u_client.run_interface()
-        cli.send(f'Decomposed {decomposed_matrices}'.encode())
+        send_matrix(cli, decomposed_matrices["upper"])
+        send_matrix(cli, decomposed_matrices["lower"])
 
 
 def main():
