@@ -15,14 +15,15 @@ def interface(s: socket.socket) -> None:
         elements = row.split()
         for j in range(n):
             matrix[i][j] = float(elements[j])
-            
+        
     send_matrix(s, matrix)
     upper = recv_matrix(s)
     lower = recv_matrix(s)
-    print(f"Upper : {upper}")
-    print(f"Lower : {lower}")
-    print(f'Product :  {np.matmul(lower, upper)}')
-    print(f'Actual : {matrix}')
+    print(f"Upper :\n {upper}")
+    print(f"Lower :\n {lower}")
+    print(f'Product :\n {np.matmul(lower, upper)}')
+    print(f'Actual :\n {matrix}')
+    x = input()
     s.close()
 
 
